@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import useSWR from "swr";
 
 interface Album {
@@ -20,6 +21,7 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 
 export default function DashboardPage() {
+  const router = useRouter();
   const { data: albums, error, isLoading, mutate } = useSWR<Album[]>(
     "/api/admin/albums",
     fetcher
@@ -255,6 +257,12 @@ export default function DashboardPage() {
                     </p>
                   </div>
                   <div className="pt-space-sm mt-space-sm border-t border-outline-variant/20 flex items-center justify-between">
+                    <button
+                      onClick={() => router.push(`/t-dashboard/albums/${album._id}`)}
+                      className="text-label-sm font-label-sm text-primary-container hover:text-primary-container/80 tracking-wider uppercase transition-colors"
+                    >
+                      MANAGE PHOTOS
+                    </button>
                     <button
                       onClick={() => setDeleteTarget(album)}
                       className="text-label-sm font-label-sm text-error hover:text-error/80 tracking-wider uppercase transition-colors"
