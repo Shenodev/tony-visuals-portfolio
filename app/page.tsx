@@ -4,8 +4,13 @@ import About from "@/components/About";
 import AlbumsGrid from "@/components/AlbumsGrid";
 import ContactBand from "@/components/ContactBand";
 import Footer from "@/components/Footer";
+import { getAllAlbums } from "@/lib/albums";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const albums = await getAllAlbums();
+
   return (
     <>
       <Header />
@@ -13,7 +18,7 @@ export default function Home() {
       <main className="pt-24 flex-grow">
         <Hero />
         <About />
-        <AlbumsGrid />
+        <AlbumsGrid albums={albums} />
         <ContactBand />
       </main>
       <Footer />
