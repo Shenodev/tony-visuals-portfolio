@@ -100,6 +100,7 @@ export async function POST(request: NextRequest) {
 
     const album = await Album.create({
       title,
+      slug,
       coverImageUrl: uploadResult.secure_url,
       coverImagePublicId: uploadResult.public_id,
     });
