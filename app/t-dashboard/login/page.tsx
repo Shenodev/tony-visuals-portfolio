@@ -24,75 +24,64 @@ export default function LoginPage() {
       if (res.ok) {
         router.push("/t-dashboard");
       } else {
-        setError("ACCESS DENIED — INVALID CREDENTIALS");
+        setError("Access denied — invalid credentials");
       }
     } catch {
-      setError("CONNECTION FAILED");
+      setError("Connection failed");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="min-h-screen bg-inverse-on-surface flex items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        {/* Terminal header */}
-        <div className="border-2 border-primary-container bg-surface-container-lowest px-4 py-3 mb-0">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="w-2.5 h-2.5 bg-error rounded-full"></span>
-            <span className="w-2.5 h-2.5 bg-tertiary-fixed-dim rounded-full"></span>
-            <span className="w-2.5 h-2.5 bg-primary-container rounded-full"></span>
-          </div>
-          <p className="text-label-sm font-label-sm text-primary-container tracking-widest uppercase">
-            SYS://SECURE_ACCESS_PORTAL
-          </p>
-          <p className="text-label-sm font-label-sm text-on-surface-variant/60 tracking-wider mt-1">
-            AUTHENTICATION REQUIRED
-          </p>
+    <div className="min-h-screen bg-background flex items-center justify-center px-4">
+      <div className="w-full max-w-md">
+        <div className="flex flex-col items-center text-center mb-space-xl">
+          <span className="font-headline-lg text-headline-lg text-on-surface">
+            TONY&nbsp;VISUALS
+          </span>
+          <span className="text-label-sm font-label-sm tracking-widest text-primary-container uppercase mt-2">
+            Admin console
+          </span>
         </div>
 
-        {/* Form body */}
-        <form
-          onSubmit={handleSubmit}
-          className="border-x-2 border-b-2 border-primary-container bg-surface-container-lowest p-6"
-        >
-          <label className="block mb-4">
-            <span className="text-label-sm font-label-sm text-primary-container tracking-widest uppercase mb-2 block">
-              PASSWORD Credential
-            </span>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              autoFocus
-              placeholder="••••••••"
-              className="w-full bg-inverse-on-surface border-2 border-outline-variant text-on-surface font-body-md px-4 py-3 placeholder:text-on-surface-variant/30 focus:border-primary-container focus:outline-none transition-colors"
-            />
-          </label>
+        <div className="bg-surface-container rounded-xl border border-outline-variant/20 shadow-[0_8px_40px_rgba(0,0,0,0.35)] p-space-xl">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-space-lg">
+            <div>
+              <label className="block text-label-sm font-label-sm tracking-widest text-on-surface-variant uppercase mb-1">
+                Password
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoFocus
+                placeholder="••••••••"
+                className="w-full bg-transparent border-b border-outline-variant/40 px-1 py-3 text-body-md font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary-container transition-colors duration-300"
+              />
+            </div>
 
-          {error && (
-            <div className="border border-error bg-error-container/20 px-4 py-3 mb-4">
+            {error && (
               <p className="text-label-sm font-label-sm text-error tracking-wider uppercase">
                 {error}
               </p>
-            </div>
-          )}
+            )}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full px-space-md py-space-sm bg-primary-container text-inverse-on-surface font-label-lg text-label-lg uppercase tracking-wider font-bold hover:shadow-[0_0_20px_rgba(126,252,159,0.3)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150"
-          >
-            {loading ? "AUTHENTICATING..." : "AUTHENTICATE"}
-          </button>
-        </form>
+            <button
+              type="submit"
+              disabled={loading}
+              className="rounded-full bg-primary-container text-inverse-on-surface px-8 py-3 text-label-lg font-label-lg uppercase tracking-wider font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? "Signing in..." : "Sign in"}
+            </button>
+          </form>
+        </div>
 
-        {/* Footer watermark */}
-        <div className="mt-4 text-center">
-          <p className="text-label-sm font-label-sm text-on-surface-variant/40 tracking-widest uppercase">
-            TONY VISUALS — ADMIN CONSOLE v1.0
-          </p>
+        <div className="mt-space-lg text-center">
+          <span className="text-label-sm font-label-sm text-on-surface-variant/50 tracking-widest uppercase">
+            © {new Date().getFullYear()} Tony Visuals · Cairo, Egypt
+          </span>
         </div>
       </div>
     </div>
