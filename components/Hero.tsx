@@ -37,7 +37,7 @@ export default function Hero() {
 
         {/* Hero image */}
         <div className="lg:col-span-7">
-          <div className="relative overflow-hidden rounded-xl aspect-[4/5] md:aspect-[3/4] w-full bg-surface-container-lowest group shadow-[0_8px_40px_rgba(0,0,0,0.45)]">
+          <div className="relative overflow-hidden rounded-xl aspect-[16/10] md:aspect-[3/2] w-full bg-surface-container-lowest group shadow-[0_8px_40px_rgba(0,0,0,0.45)]">
             <Image
               alt="Live concert arena with silhouette performers against dramatic stage lighting"
               className="img-desat object-cover object-center"

@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
 @theme inline {
   --color-on-tertiary-fixed-variant: #354a52;
   --color-primary-fixed-dim: #60de85;
