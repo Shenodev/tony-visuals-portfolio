@@ -1,3 +1,4 @@
+import Image from "next/image";
 export default function About() {
   return (
     <section
@@ -12,12 +13,6 @@ export default function About() {
               About
             </span>
             <div className="mt-space-md">
-              <span
-                className="font-display-xl italic text-primary-container leading-none block"
-                aria-hidden="true"
-              >
-                &ldquo;
-              </span>
               <blockquote className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mt-2">
                 Every frame begins the same way — with{" "}
                 <span className="italic text-primary-container/90">
@@ -25,6 +20,7 @@ export default function About() {
                 </span>{" "}
                 and an open ear.
               </blockquote>
+              <Image src="" alt="Tony" width={100} height={100} className="w-24 h-24 rounded-full" />
               <p className="text-label-sm font-label-sm tracking-widest text-on-surface-variant uppercase mt-space-md">
                 — Tony, photographer based in Cairo
               </p>

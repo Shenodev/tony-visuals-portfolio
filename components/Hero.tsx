@@ -1,8 +1,4 @@
-const SERVICES = [
-  { index: "01", label: "Live performances" },
-  { index: "02", label: "Events & celebrations" },
-  { index: "03", label: "Dramatic portraiture" },
-];
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -41,35 +37,8 @@ export default function Hero() {
 
         {/* Editorial plate */}
         <div className="lg:col-span-5 hidden lg:block">
-          <div className="relative overflow-hidden rounded-xl bg-surface-container border border-outline-variant/20 p-space-2xl shadow-[0_8px_40px_rgba(0,0,0,0.45)] before:pointer-events-none before:absolute before:inset-0 before:content-[''] before:bg-[radial-gradient(60%_80%_at_85%_10%,rgba(126,252,159,0.12),transparent),radial-gradient(50%_60%_at_10%_90%,rgba(35,104,113,0.35),transparent)]">
-            <div className="flex items-start justify-between">
-              <span className="font-display-lg italic text-primary-container">TV</span>
-              <span className="text-label-sm font-label-sm tracking-widest text-on-surface-variant uppercase">
-                Est. Cairo
-              </span>
-            </div>
-
-            <div className="mt-space-xl flex flex-col divide-y divide-outline-variant/25">
-              {SERVICES.map((service) => (
-                <div
-                  key={service.index}
-                  className="flex items-baseline justify-between gap-space-md py-space-md"
-                >
-                  <span className="text-label-sm font-label-sm text-on-surface-variant/60">
-                    {service.index}
-                  </span>
-                  <span className="font-headline-sm text-headline-sm text-on-surface">
-                    {service.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <p className="mt-space-xl font-body-sm text-body-sm text-on-surface-variant">
-              Available for commissions across Egypt and worldwide — dates
-              agreed personally by email.
-            </p>
-          </div>
+          <Image src="/"
+          alt="Hero" width={500} height={500} className="w-full h-full object-cover rounded-xl" />
         </div>
       </div>
     </section>
