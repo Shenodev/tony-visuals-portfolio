@@ -219,6 +219,43 @@ export default function AlbumPhotosPage() {
     }
   };
 
+  const handleAlbumDelete = async () => {
+    if (!album) return;
+    setDeleting(true);
+    setDeleteError("");
+
+    try {
+      const res = await fetch(`/api/admin/albums/${album._id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to delete album");
+      }
+
+      // Delete images in Cloudinary
+      const imageIds = images?.map((image) => image.public_id) || [];
+      await Promise.all(imageIds.map((imageId) => deleteImageFromCloudinary(imageId)));
+
+      router.push("/t-dashboard");
+    } catch (err) {
+      setDeleteError(
+        err instanceof Error ? err.message : "Failed to delete album"
+      );
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  const deleteImageFromCloudinary = async (imageId: string) => {
+    try {
+      await deleteImage(imageId);
+    } catch (err) {
+      console.error(`Failed to delete image from Cloudinary: ${err}`);
+    }
+  };
+
   if (albumError || imagesError) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center px-4">
@@ -419,6 +456,54 @@ export default function AlbumPhotosPage() {
             <div className="flex gap-4">
               <button
                 onClick={handleDelete}
+                disabled={deleting}
+                className="rounded-full bg-error text-inverse-on-surface px-6 py-2.5 text-label-md font-label-md uppercase tracking-wider font-semibold flex-1 disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition-opacity"
+              >
+                {deleting ? "Deleting..." : "Delete"}
+              </button>
+              <button
+                onClick={() => setDeleteTarget(null)}
+                disabled={deleting}
+                className={ghostBtn}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Album Delete Confirmation Modal */}
+      {album && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          <div
+            className="absolute inset-0 bg-inverse-on-surface/80 backdrop-blur-sm"
+            onClick={() => !deleting && setDeleteTarget(null)}
+          ></div>
+          <div className="relative w-full max-w-sm bg-surface-container rounded-xl border border-outline-variant/20 shadow-[0_8px_40px_rgba(0,0,0,0.4)] p-space-lg">
+            <div className="mb-space-md">
+              <img
+                src={album.coverImageUrl}
+                alt=""
+                className="w-full aspect-[4/3] object-cover rounded-md"
+              />
+            </div>
+            <h2 className="font-headline-md text-headline-md text-on-surface tracking-tight mb-space-md">
+              Delete album?
+            </h2>
+            <p className="font-body-md text-body-md text-on-surface-variant mb-space-lg">
+              This action cannot be undone.
+            </p>
+
+            {deleteError && (
+              <p className="text-label-sm font-label-sm text-error tracking-wider uppercase mb-space-md">
+                {deleteError}
+              </p>
+            )}
+
+            <div className="flex gap-4">
+              <button
+                onClick={handleAlbumDelete}
                 disabled={deleting}
                 className="rounded-full bg-error text-inverse-on-surface px-6 py-2.5 text-label-md font-label-md uppercase tracking-wider font-semibold flex-1 disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition-opacity"
               >
