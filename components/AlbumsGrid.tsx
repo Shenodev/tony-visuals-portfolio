@@ -8,118 +8,89 @@ interface AlbumsGridProps {
 
 export default function AlbumsGrid({ albums }: AlbumsGridProps) {
   return (
-    <section id="portfolio" className="max-w-[1800px] mx-auto">
-      {/* Section header */}
-      <div className="grid grid-cols-12 border-b border-outline-variant/50">
-        <div className="col-span-12 md:col-span-8 px-margin-mobile md:px-margin py-space-xl md:py-space-2xl border-r-0 md:border-r border-outline-variant/50">
-          <div className="flex items-center gap-2 mb-space-md">
-            <span className="w-2 h-2 bg-primary-container"></span>
-            <span className="text-label-sm font-label-sm text-primary-container tracking-widest uppercase">
-              ARCHIVAL EXHIBITIONS
-            </span>
-          </div>
-          <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary-container uppercase tracking-tight">
-            SELECTED EXHIBITIONS &amp; ALBUMS<span className="text-tertiary">.</span>
+    <section id="portfolio" className="max-w-[1600px] mx-auto px-margin-mobile md:px-margin py-space-2xl md:py-space-3xl">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-space-md mb-space-xl">
+        <div>
+          <span className="text-label-sm font-label-sm tracking-widest text-primary-container uppercase">
+            Selected work
+          </span>
+          <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mt-space-sm">
+            Albums &amp; <span className="italic text-primary-container/90">exhibitions.</span>
           </h2>
         </div>
-        <div className="hidden md:flex col-span-4 px-margin py-space-2xl flex-col justify-end gap-space-sm">
-          <span className="text-label-md font-label-md text-on-surface-variant uppercase tracking-widest font-mono">
-            INDEX: 01 — {String(albums.length).padStart(2, "0")}
-          </span>
-          <span className="text-label-sm font-label-sm text-primary-container uppercase tracking-widest font-mono">
-            / COMPLETE ARCHIVE
-          </span>
-        </div>
+        <span className="text-label-md font-label-md tracking-widest text-on-surface-variant/70 uppercase">
+          01 — {String(albums.length).padStart(2, "0")}
+        </span>
       </div>
 
-      {/* Portfolio grid — horizontal index rail + cards */}
-      <div className="lg:grid lg:grid-cols-12">
-        <div className="hidden lg:flex lg:col-span-1 flex-col border-r border-outline-variant/50">
-          {albums.map((_, i) => (
-            <span
-              key={i}
-              className="text-label-sm font-label-sm text-on-surface-variant font-mono border-b border-outline-variant/50 px-margin py-space-md tracking-widest"
+      {albums.length === 0 ? (
+        <div className="py-space-3xl text-center rounded-xl border border-dashed border-outline-variant/30">
+          <span className="material-symbols-outlined text-[48px] text-outline-variant/50 block mb-space-md">
+            photo_library
+          </span>
+          <p className="text-label-md font-label-md text-on-surface-variant/60 uppercase tracking-wider">
+            The archive is currently empty
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-space-lg">
+          {albums.map((album) => (
+            <Link
+              key={album._id}
+              href={`/albums/${album._id}`}
+              className="card-group flex flex-col group"
             >
-              0{i + 1}
-            </span>
+              {/* Image */}
+              <div className="relative overflow-hidden rounded-lg aspect-[4/3] w-full bg-surface-container-lowest shadow-[0_4px_24px_rgba(0,0,0,0.25)]">
+                <Image
+                  className="img-desat object-cover object-center"
+                  src={album.coverImageUrl}
+                  alt={album.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                  placeholder="blur"
+                  blurDataURL={`https://res.cloudinary.com/image/upload/w_20,e_blur:30,q_auto,f_jpg/${album.coverImagePublicId}`}
+                />
+                {/* Year badge */}
+                {album.year && (
+                  <span className="absolute top-3 right-3 bg-background/80 backdrop-blur-sm text-label-sm font-label-sm text-primary-container rounded-full px-3 py-1 z-10">
+                    {album.year}
+                  </span>
+                )}
+              </div>
+
+              {/* Caption */}
+              <div className="pt-space-md flex flex-col gap-1">
+                <div className="flex items-center justify-between gap-space-sm">
+                  <h3 className="font-headline-sm text-headline-sm text-on-surface truncate">
+                    {album.title}
+                  </h3>
+                  <span className="text-label-sm font-label-sm text-primary-container tracking-widest uppercase shrink-0">
+                    View →
+                  </span>
+                </div>
+                <p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                  {album.description || ""}
+                </p>
+                <div className="flex items-center gap-space-md pt-1">
+                  {album.location && (
+                    <span className="text-label-sm font-label-sm text-on-surface-variant/70 tracking-wide flex items-center gap-1">
+                      <span className="material-symbols-outlined text-[14px]">
+                        location_on
+                      </span>
+                      {album.location}
+                    </span>
+                  )}
+                  <span className="text-label-sm font-label-sm text-on-surface-variant/70 tracking-wide">
+                    {album.imageCount || 0} plates
+                  </span>
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
-
-        <div className="lg:col-span-11">
-          {albums.length === 0 ? (
-            <div className="px-margin-mobile md:px-margin py-space-3xl text-center">
-              <span className="material-symbols-outlined text-[48px] text-outline-variant block mb-space-md">
-                photo_library
-              </span>
-              <p className="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">
-                THE ARCHIVE IS CURRENTLY EMPTY
-              </p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
-              {albums.map((album, i) => (
-                <Link
-                  key={album._id}
-                  href={`/albums/${album._id}`}
-                  className="card-group relative flex flex-col group border-b border-outline-variant/50 sm:border-r last:border-r-0 sm:odd:border-r-0 xl:odd:border-r-0"
-                >
-                  {/* Hover state block */}
-                  <div className="absolute inset-0 bg-primary-container hidden group-hover:block mix-blend-screen pointer-events-none"></div>
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-surface-container-lowest border-b border-outline-variant/40">
-                    <Image
-                      className="w-full h-full object-cover img-desat"
-                      src={album.coverImageUrl}
-                      alt={album.title}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                      placeholder="blur"
-                      blurDataURL={`https://res.cloudinary.com/image/upload/w_20,e_blur:30,q_auto,f_jpg/${album.coverImagePublicId}`}
-                    />
-                    <div className="absolute top-0 left-0 bg-background/90 px-3 py-1 border-b border-r border-outline-variant/40 flex items-center gap-2 z-10">
-                      <span className="w-1.5 h-1.5 bg-primary-container"></span>
-                      <span className="text-label-sm font-label-sm text-on-surface tracking-wider uppercase">
-                        {album.imageCount || 0} PLATES
-                      </span>
-                    </div>
-                    <div className="absolute top-0 right-0 bg-background/90 px-3 py-1 border-b border-l border-outline-variant/40 text-label-sm font-label-sm text-primary-container font-mono z-10">
-                      {album.year || "—"}
-                    </div>
-                  </div>
-                  <div className="p-space-lg md:p-space-xl flex flex-col justify-between flex-grow">
-                    <div>
-                      <div className="flex items-center justify-between mb-space-xs">
-                        <span className="text-label-sm font-label-sm text-primary-container tracking-widest uppercase">
-                          {album.category || "UNCLASSIFIED"}
-                        </span>
-                        <span className="text-label-sm font-label-sm text-on-surface-variant font-mono tracking-widest hidden sm:block">
-                          0{i + 1}
-                        </span>
-                      </div>
-                      <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-space-sm font-black uppercase">
-                        {album.title}
-                      </h3>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                        {album.description || ""}
-                      </p>
-                    </div>
-                    <div className="pt-space-lg mt-space-lg border-t border-outline-variant/30 flex items-center justify-between text-label-sm font-label-sm">
-                      <span className="text-on-surface-variant flex items-center gap-1">
-                        <span className="material-symbols-outlined text-[16px] text-primary-container">
-                          location_on
-                        </span>
-                        {album.location || "—"}
-                      </span>
-                      <span className="text-primary-container tracking-wider uppercase flex items-center gap-1 font-bold group-hover:underline">
-                        VIEW SERIES →
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+      )}
     </section>
   );
 }

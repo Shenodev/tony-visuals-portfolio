@@ -5,9 +5,9 @@ import { useState, FormEvent } from "react";
 type Status = "idle" | "submitting" | "success" | "error";
 
 const inputBase =
-  "w-full bg-transparent border-b-2 border-outline-variant/60 px-0 py-3 text-body-md font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary-container transition-colors duration-150";
+  "w-full bg-transparent border-b border-outline-variant/40 px-1 py-3 text-body-md font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary-container transition-colors duration-300";
 const labelBase =
-  "block text-label-sm font-label-sm text-primary-container tracking-widest uppercase mb-1";
+  "block text-label-sm font-label-sm tracking-widest text-on-surface-variant uppercase mb-1";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -52,23 +52,23 @@ export default function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="w-full md:max-w-md bg-surface-container p-space-xl text-center border-2 border-primary-container/50">
-        <span className="material-symbols-outlined text-primary-container text-[40px] mb-2">
+      <div className="rounded-lg border border-primary-container/30 p-space-xl text-center">
+        <span className="material-symbols-outlined text-primary-container text-[44px] mb-3 block">
           check_circle
         </span>
-        <h4 className="font-headline-sm text-headline-sm text-primary-container uppercase tracking-tight mb-1">
-          INQUIRY RECEIVED
+        <h4 className="font-headline-sm text-headline-sm text-primary-container mb-1">
+          Inquiry received
         </h4>
         <p className="font-body-sm text-body-sm text-on-surface-variant">
-          Your message is on its way. Tony will reply at{" "}
+          Your message is on its way. I&apos;ll reply at{" "}
           <span className="text-primary-container">{email}</span> shortly.
         </p>
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="mt-space-md text-label-sm font-label-sm text-primary-container tracking-wider uppercase hover:underline"
+          className="mt-space-md text-label-sm font-label-sm tracking-widest uppercase text-primary-container hover:opacity-80 transition-opacity"
         >
-          SEND ANOTHER →
+          Send another →
         </button>
       </div>
     );
@@ -77,16 +77,9 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full md:max-w-md bg-surface-container p-space-xl flex flex-col gap-space-lg border-2 border-outline-variant/50"
+      className="flex flex-col gap-space-lg"
       noValidate
     >
-      <div className="flex items-center gap-2">
-        <span className="w-1.5 h-1.5 bg-primary-container animate-pulse"></span>
-        <span className="text-label-sm font-label-sm text-primary-container tracking-widest uppercase">
-          BOOKING FORM // INQUIRY
-        </span>
-      </div>
-
       {/* Honeypot — visually hidden from users, bots fill it in */}
       <input
         type="text"
@@ -101,7 +94,7 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="cf-name" className={labelBase}>
-          YOUR NAME
+          Your name
         </label>
         <input
           id="cf-name"
@@ -117,7 +110,7 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="cf-email" className={labelBase}>
-          YOUR EMAIL
+          Email address
         </label>
         <input
           id="cf-email"
@@ -133,7 +126,7 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="cf-details" className={labelBase}>
-          PHOTOSHOOT DETAILS
+          Tell me about your shoot
         </label>
         <textarea
           id="cf-details"
@@ -143,13 +136,13 @@ export default function ContactForm() {
           required
           minLength={10}
           rows={5}
-          placeholder="Event type, date, location, expected duration, references..."
+          placeholder="Event type, date, location, references..."
           className={`${inputBase} resize-y`}
         />
       </div>
 
       {status === "error" && (
-        <p className="text-label-sm font-label-sm text-error uppercase tracking-wider">
+        <p className="text-label-sm font-label-sm text-error tracking-wider uppercase">
           {errorMsg}
         </p>
       )}
@@ -157,9 +150,9 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="px-space-xl py-space-md bg-primary-container text-inverse-on-surface font-label-lg text-label-lg uppercase tracking-wider text-center font-bold hover:bg-tertiary transition-colors duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
+        className="rounded-full bg-primary-container text-inverse-on-surface px-8 py-3.5 text-label-lg font-label-lg uppercase tracking-wider font-semibold hover:opacity-90 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed w-fit"
       >
-        {status === "submitting" ? "SENDING..." : "SEND INQUIRY"}
+        {status === "submitting" ? "Sending..." : "Send inquiry"}
       </button>
     </form>
   );

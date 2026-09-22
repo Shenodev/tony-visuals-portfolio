@@ -67,14 +67,14 @@
   --font-body-sm: Manrope;
   --font-body-md: Manrope;
   --font-body-lg: Manrope;
-  --font-label-sm: "Space Grotesk";
-  --font-label-md: "Space Grotesk";
-  --font-label-lg: "Space Grotesk";
-  --font-headline-sm: Archivo;
-  --font-headline-md: Archivo;
-  --font-headline-lg: Archivo;
-  --font-display-lg: Archivo;
-  --font-display-xl: Archivo;
+  --font-label-sm: Manrope;
+  --font-label-md: Manrope;
+  --font-label-lg: Manrope;
+  --font-headline-sm: Fraunces;
+  --font-headline-md: Fraunces;
+  --font-headline-lg: Fraunces;
+  --font-display-lg: Fraunces;
+  --font-display-xl: Fraunces;
 }
 
 /* Material Symbols */
@@ -92,53 +92,24 @@
   direction: ltr;
 }
 
-/* HUD Bracket viewfinder corners */
-.hud-bracket {
-  position: relative;
+/* Editorial hairline utility */
+.hairline-t {
+  border-top: 1px solid rgba(35, 104, 113, 0.28);
 }
-.hud-bracket::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  width: 14px;
-  height: 14px;
-  border-top: 2px solid #7efc9f;
-  border-left: 2px solid #7efc9f;
-  pointer-events: none;
-  z-index: 20;
-}
-.hud-bracket::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
-  width: 14px;
-  height: 14px;
-  border-bottom: 2px solid #7efc9f;
-  border-right: 2px solid #7efc9f;
-  pointer-events: none;
-  z-index: 20;
+.hairline-b {
+  border-bottom: 1px solid rgba(35, 104, 113, 0.28);
 }
 
-/* Brutalist grid-aid: full-bleed border columns */
-.grid-line-v {
-  border-left: 1px solid rgba(35, 104, 113, 0.35);
-}
-.grid-line-h {
-  border-top: 1px solid rgba(35, 104, 113, 0.35);
-}
-
-/* Desaturated cinematic image treatment */
+/* Refined image treatment — subtle desat, gentle lift on hover */
 .img-desat {
-  filter: grayscale(25%) contrast(105%);
+  filter: grayscale(20%) contrast(103%);
   transition:
-    filter 0.2s ease,
-    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    filter 0.4s ease,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .card-group:hover .img-desat {
   filter: grayscale(0%) contrast(100%);
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 /* Global reduced-motion safety */
