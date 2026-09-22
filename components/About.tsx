@@ -8,7 +8,7 @@ export default function About() {
       <div className="max-w-[1600px] mx-auto px-margin-mobile md:px-margin py-space-2xl md:py-space-3xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-xl lg:gap-space-3xl">
           {/* Headline column */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 hidden lg:block">
             <span className="text-label-sm font-label-sm tracking-widest text-primary-container uppercase">
               About
             </span>
