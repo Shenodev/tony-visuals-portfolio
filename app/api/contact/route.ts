@@ -1,5 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { isSameOrigin } from "@/lib/session";
+import { clientKey, rateLimit } from "@/lib/rate-limit";
 
 const MAX_NAME = 120;
 const MAX_EMAIL = 254;
@@ -9,13 +11,16 @@ interface ContactPayload {
   name?: unknown;
   email?: unknown;
   details?: unknown;
+  consent?: unknown;
   // Honeypot field — real users never see it, bots always fill it.
   company?: unknown;
 }
 
 function isSafeEmail(email: string): boolean {
   if (email.length > MAX_EMAIL) return false;
-  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+  // ASCII-only address: blocks quotes/angle brackets/labels that could be
+  // used to smuggle markup or headers into the notification email.
+  return /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/.test(email);
 }
 
 function cleanString(value: unknown, max: number): string {
@@ -23,7 +28,39 @@ function cleanString(value: unknown, max: number): string {
   return value.trim().slice(0, max);
 }
 
-export async function POST(request: Request) {
+// Strips CR/LF and other C0 control chars used for header-injection attempts.
+function stripControlChars(value: string): string {
+  return value.replace(/[\u0000-\u001f\u007f]/g, "");
+}
+
+// Escapes HTML-sensitive characters (used for every interpolated field).
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+export async function POST(request: NextRequest) {
+  const key = clientKey(request, "contact");
+  if (!rateLimit(key, 5, 10 * 60 * 1000)) {
+    const res = NextResponse.json(
+      { error: "RATE_LIMITED", message: "Too many requests. Try again later." },
+      { status: 429 }
+    );
+    res.headers.set("Retry-After", "600");
+    return res;
+  }
+
+  if (!isSameOrigin(request)) {
+    return NextResponse.json(
+      { error: "Invalid request origin" },
+      { status: 403 }
+    );
+  }
+
   let body: ContactPayload;
   try {
     body = (await request.json()) as ContactPayload;
@@ -39,9 +76,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const name = cleanString(body.name, MAX_NAME);
+  if (body.consent !== true) {
+    return NextResponse.json(
+      {
+        error: "CONSENT_REQUIRED",
+        message: "Please accept the privacy policy to send your inquiry.",
+      },
+      { status: 422 }
+    );
+  }
+
+  const name = stripControlChars(cleanString(body.name, MAX_NAME));
   const email = cleanString(body.email, MAX_EMAIL).toLowerCase();
-  const details = cleanString(body.details, MAX_DETAILS);
+  const details = stripControlChars(cleanString(body.details, MAX_DETAILS));
 
   if (!name) {
     return NextResponse.json(
@@ -79,6 +126,10 @@ export async function POST(request: Request) {
 
   const resend = new Resend(apiKey);
 
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeDetails = escapeHtml(details);
+
   const text = [
     `New photography inquiry from ${name}`,
     "",
@@ -90,6 +141,9 @@ export async function POST(request: Request) {
     "",
     "— Sent from Tony Visuals portfolio",
   ].join("\n");
+
+  const emailFooter =
+    "Tony Visuals · Cairo, Egypt · No promotional emails are sent. To request deletion of the personal data in this message, reply with DELETE.";
 
   try {
     await resend.emails.send({
@@ -104,18 +158,20 @@ export async function POST(request: Request) {
           <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
             <tr>
               <td style="padding: 8px 0; color: #7EFC9F; width: 140px; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Name</td>
-              <td style="padding: 8px 0;">${name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</td>
+              <td style="padding: 8px 0;">${safeName}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #7EFC9F; width: 140px; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Email</td>
-              <td style="padding: 8px 0;"><a href="mailto:${email}" style="color: #7EFC9F;">${email}</a></td>
+              <td style="padding: 8px 0;"><a href="mailto:${safeEmail}" style="color: #7EFC9F;">${safeEmail}</a></td>
             </tr>
             <tr>
               <td style="padding: 8px 0; vertical-align: top; color: #7EFC9F; width: 140px; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Details</td>
-              <td style="padding: 8px 0; white-space: pre-wrap;">${details.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</td>
+              <td style="padding: 8px 0; white-space: pre-wrap;">${safeDetails}</td>
             </tr>
           </table>
-          <p style="margin-top: 28px; font-size: 12px; color: #bccabb;">Sent from the Tony Visuals portfolio contact form.</p>
+          <p style="margin-top: 28px; font-size: 12px; color: #bccabb;">${escapeHtml(
+            emailFooter
+          )}</p>
         </div>
       `,
     });

@@ -79,7 +79,7 @@ export default function LoginPage() {
         </div>
 
         <div className="mt-space-lg text-center">
-          <span className="text-label-sm font-label-sm text-on-surface-variant/50 tracking-widest uppercase">
+          <span className="text-label-sm font-label-sm text-on-surface-variant/70 tracking-widest uppercase">
             © {new Date().getFullYear()} Tony Visuals · Cairo, Egypt
           </span>
         </div>

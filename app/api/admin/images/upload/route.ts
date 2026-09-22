@@ -3,21 +3,34 @@ import dbConnect from "@/lib/mongodb";
 import Image from "@/models/Image";
 import Album from "@/models/Album";
 import { uploadImage } from "@/lib/cloudinary";
+import {
+  ALLOWED_IMAGE_TYPES,
+  mapWithConcurrency,
+  sniffImageType,
+} from "@/lib/upload";
+import { isSameOrigin, isValidObjectId, requireAdmin } from "@/lib/session";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 const MAX_FILES = 50;
+const UPLOAD_CONCURRENCY = 4;
 
 export async function POST(request: NextRequest) {
+  const authError = await requireAdmin(request);
+  if (authError) return authError;
+
+  if (!isSameOrigin(request)) {
+    return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
+  }
+
   try {
     await dbConnect();
 
     const formData = await request.formData();
-    const albumId = formData.get("albumId") as string | null;
+    const albumId = formData.get("albumId");
 
-    if (!albumId) {
+    if (typeof albumId !== "string" || !isValidObjectId(albumId)) {
       return NextResponse.json(
-        { error: "albumId is required" },
+        { error: "A valid albumId is required" },
         { status: 400 }
       );
     }
@@ -52,10 +65,10 @@ export async function POST(request: NextRequest) {
     }
 
     for (const file of files) {
-      if (!ALLOWED_TYPES.includes(file.type)) {
+      if (!(ALLOWED_IMAGE_TYPES as readonly string[]).includes(file.type)) {
         return NextResponse.json(
           {
-            error: `Invalid file type: ${file.name}. Allowed: ${ALLOWED_TYPES.join(", ")}`,
+            error: `Invalid file type: ${file.name}. Allowed: ${ALLOWED_IMAGE_TYPES.join(", ")}`,
           },
           { status: 400 }
         );
@@ -77,9 +90,20 @@ export async function POST(request: NextRequest) {
 
     const folder = `tony-visuals/albums/${slug}`;
 
-    const uploadResults = await Promise.all(
-      files.map(async (file, index) => {
+    const uploadResults = await mapWithConcurrency(
+      files,
+      UPLOAD_CONCURRENCY,
+      async (file, index) => {
         const arrayBuffer = await file.arrayBuffer();
+        const bytes = new Uint8Array(arrayBuffer);
+
+        const detected = sniffImageType(bytes);
+        if (!detected || detected !== file.type) {
+          throw new ImageValidationError(
+            `File is not a valid image: ${file.name}`
+          );
+        }
+
         const fileBuffer = Buffer.from(arrayBuffer);
 
         const result = await uploadImage(fileBuffer, folder, {
@@ -93,13 +117,16 @@ export async function POST(request: NextRequest) {
           width: result.width,
           height: result.height,
         };
-      })
+      }
     );
 
     const savedImages = await Image.insertMany(uploadResults);
 
     return NextResponse.json(savedImages, { status: 201 });
   } catch (error) {
+    if (error instanceof ImageValidationError) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
     console.error("POST /api/admin/images/upload error:", error);
     return NextResponse.json(
       { error: "Failed to upload images" },
@@ -107,3 +134,5 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+class ImageValidationError extends Error {}

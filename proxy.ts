@@ -1,52 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
+import { COOKIE_NAME, verifyAdminToken } from "@/lib/session";
 
-const COOKIE_NAME = "admin_token";
 const PROTECTED_PREFIXES = ["/t-dashboard", "/api/admin"];
-
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
-const COOKIE_SECRET = process.env.COOKIE_SECRET;
 
 function isProtectedPath(pathname: string): boolean {
   if (pathname === "/t-dashboard/login") return false;
   return PROTECTED_PREFIXES.some(
     (prefix) => pathname === prefix || pathname.startsWith(prefix + "/")
   );
-}
-
-async function verifyToken(token: string): Promise<boolean> {
-  if (!COOKIE_SECRET) return false;
-
-  const parts = token.split(".");
-  if (parts.length !== 2) return false;
-
-  const [payloadB64, sigB64] = parts;
-
-  const key = await crypto.subtle.importKey(
-    "raw",
-    new TextEncoder().encode(COOKIE_SECRET),
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["verify"]
-  );
-
-  const sigBytes = Uint8Array.from(atob(sigB64), (c) => c.charCodeAt(0));
-  const valid = await crypto.subtle.verify(
-    "HMAC",
-    key,
-    sigBytes,
-    new TextEncoder().encode(payloadB64)
-  );
-
-  if (!valid) return false;
-
-  try {
-    const payload = JSON.parse(atob(payloadB64));
-    if (typeof payload.exp !== "number") return false;
-    if (Date.now() > payload.exp) return false;
-    return payload.pw === ADMIN_PASSWORD;
-  } catch {
-    return false;
-  }
 }
 
 async function proxy(request: NextRequest) {
@@ -57,7 +18,7 @@ async function proxy(request: NextRequest) {
   }
 
   const token = request.cookies.get(COOKIE_NAME)?.value;
-  const isValid = token ? await verifyToken(token) : false;
+  const isValid = token ? await verifyAdminToken(token) : false;
 
   if (isValid) {
     return NextResponse.next();
