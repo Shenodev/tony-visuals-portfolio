@@ -15,7 +15,7 @@ export default async function Home() {
     <>
       <Header />
       {/* Main Public Canvas */}
-      <main className="pt-24 flex-grow">
+      <main className="flex-grow">
         <Hero />
         <About />
         <AlbumsGrid albums={albums} />

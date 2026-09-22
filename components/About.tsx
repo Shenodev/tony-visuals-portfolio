@@ -1,26 +1,32 @@
 export default function About() {
   return (
-    <section
-      id="about"
-      className="bg-surface-container-high text-on-surface py-space-2xl md:py-space-3xl border-y border-outline-variant/50 relative overflow-hidden"
-    >
-      <div className="px-margin-mobile md:px-margin-desktop max-w-[1500px] mx-auto">
-        {/* Eyebrow & headline */}
-        <div className="max-w-3xl mb-space-2xl">
-          <div className="flex items-center gap-2 mb-space-sm">
+    <section id="about" className="bg-surface-container-high text-on-surface relative overflow-hidden">
+      <div className="max-w-[1800px] mx-auto">
+        {/* Section top bar */}
+        <div className="grid grid-cols-12 border-b border-outline-variant/50">
+          <div className="col-span-12 md:col-span-6 border-r border-outline-variant/50 px-margin-mobile md:px-margin py-space-md flex items-center gap-2">
             <span className="w-2 h-2 bg-primary-container"></span>
             <span className="text-label-sm font-label-sm text-primary-container tracking-widest uppercase">
               THE PHOTOGRAPHER // CAIRO, EGYPT
             </span>
           </div>
-          <h2 className="font-headline-lg text-headline-lg text-tertiary tracking-tight">
-            DOCUMENTING LIGHT, TIMING &amp; AUTHENTIC EMOTION
+          <div className="hidden md:flex col-span-6 px-margin py-space-md items-center justify-end">
+            <span className="text-label-sm font-label-sm tracking-widest text-on-surface-variant uppercase font-mono">
+              SEC. 02 — ABOUT
+            </span>
+          </div>
+        </div>
+
+        {/* Headline */}
+        <div className="px-margin-mobile md:px-margin py-space-2xl border-b border-outline-variant/50">
+          <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-tertiary tracking-tight uppercase max-w-4xl">
+            DOCUMENTING LIGHT, TIMING &amp; AUTHENTIC EMOTION<span className="text-primary-container">.</span>
           </h2>
         </div>
 
-        {/* Asymmetric two-column bio */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop mb-space-2xl">
-          <div className="lg:col-span-5">
+        {/* Asymmetric bio */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-outline-variant/50">
+          <div className="lg:col-span-6 px-margin-mobile md:px-margin py-space-2xl border-r-0 lg:border-r border-outline-variant/50">
             <p className="font-body-lg text-body-lg text-on-surface leading-relaxed">
               I&apos;m a photographer based in Egypt specializing in live
               performances, events, and dramatic portraiture. While my roots are
@@ -29,8 +35,8 @@ export default function About() {
               genuine character and emotion.
             </p>
           </div>
-          <div className="lg:col-span-6 lg:col-start-7 lg:mt-4">
-            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          <div className="lg:col-span-6 px-margin-mobile md:px-margin py-space-2xl">
+            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed max-w-xl">
               Whether documenting a live production, capturing key moments at an
               event, or directing a one-on-one portrait session, I focus on
               strong lighting, timing, and authentic emotions to create striking
@@ -40,43 +46,44 @@ export default function About() {
         </div>
 
         {/* Discipline pillars */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-space-xl border-t border-outline-variant/40">
-          <div className="border-l border-primary-container pl-4">
-            <span className="material-symbols-outlined text-[18px] text-primary-container block mb-1">
-              equalizer
-            </span>
-            <span className="block font-headline-sm text-headline-sm text-on-surface font-semibold mb-0.5">
-              LIVE PERFORMANCES
-            </span>
-            <span className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-              Concerts, stages, and the kinetic tension of live sound captured
-              with precision and dramatic contrast.
-            </span>
-          </div>
-          <div className="border-l border-primary-container pl-4">
-            <span className="material-symbols-outlined text-[18px] text-primary-container block mb-1">
-              event
-            </span>
-            <span className="block font-headline-sm text-headline-sm text-on-surface font-semibold mb-0.5">
-              EVENTS
-            </span>
-            <span className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-              Key moments across festivals, corporate productions, and private
-              gatherings — framed with narrative intent.
-            </span>
-          </div>
-          <div className="border-l border-primary-container pl-4">
-            <span className="material-symbols-outlined text-[18px] text-primary-container block mb-1">
-              portrait
-            </span>
-            <span className="block font-headline-sm text-headline-sm text-on-surface font-semibold mb-0.5">
-              DRAMATIC PORTRAITURE
-            </span>
-            <span className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-              Personal sessions shaped by intentional lighting and direction,
-              revealing the real character behind the subject.
-            </span>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3">
+          {[
+            {
+              icon: "equalizer",
+              title: "LIVE PERFORMANCES",
+              copy: "Concerts, stages, and the kinetic tension of live sound captured with precision and dramatic contrast.",
+            },
+            {
+              icon: "event",
+              title: "EVENTS",
+              copy: "Key moments across festivals, corporate productions, and private gatherings — framed with narrative intent.",
+            },
+            {
+              icon: "portrait",
+              title: "DRAMATIC PORTRAITURE",
+              copy: "Personal sessions shaped by intentional lighting and direction, revealing the real character behind the subject.",
+            },
+          ].map((item, i) => (
+            <div
+              key={item.title}
+              className="flex flex-col gap-space-md px-margin-mobile md:px-margin py-space-xl border-r-0 md:border-r last:border-r-0 border-outline-variant/50"
+            >
+              <div className="flex items-center justify-between border-b border-outline-variant/40 pb-space-md">
+                <span className="text-label-sm font-label-sm text-primary-container tracking-widest uppercase font-mono">
+                  0{i + 1}
+                </span>
+                <span className="material-symbols-outlined text-[22px] text-primary-container">
+                  {item.icon}
+                </span>
+              </div>
+              <h3 className="font-headline-md text-headline-md text-on-surface font-bold uppercase">
+                {item.title}
+              </h3>
+              <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                {item.copy}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

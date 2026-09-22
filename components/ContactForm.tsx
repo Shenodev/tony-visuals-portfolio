@@ -5,7 +5,7 @@ import { useState, FormEvent } from "react";
 type Status = "idle" | "submitting" | "success" | "error";
 
 const inputBase =
-  "w-full bg-surface-container-lowest border border-outline-variant/40 px-4 py-3 text-body-md font-body-md text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:border-primary-container focus:shadow-[0_0_0_1px_rgba(126,252,159,0.4)] transition-all duration-150";
+  "w-full bg-transparent border-b-2 border-outline-variant/60 px-0 py-3 text-body-md font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary-container transition-colors duration-150";
 const labelBase =
   "block text-label-sm font-label-sm text-primary-container tracking-widest uppercase mb-1";
 
@@ -52,7 +52,7 @@ export default function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="w-full md:max-w-md bg-surface-container-lowest border border-primary-container/50 p-space-lg text-center">
+      <div className="w-full md:max-w-md bg-surface-container p-space-xl text-center border-2 border-primary-container/50">
         <span className="material-symbols-outlined text-primary-container text-[40px] mb-2">
           check_circle
         </span>
@@ -77,7 +77,7 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full md:max-w-md bg-surface-container-lowest border border-outline-variant/40 p-space-lg flex flex-col gap-space-md"
+      className="w-full md:max-w-md bg-surface-container p-space-xl flex flex-col gap-space-lg border-2 border-outline-variant/50"
       noValidate
     >
       <div className="flex items-center gap-2">
@@ -157,7 +157,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="px-space-xl py-space-md bg-primary-container text-inverse-on-surface font-label-lg text-label-lg uppercase tracking-wider text-center font-bold hover:bg-tertiary transition-all duration-150 shadow-[0_0_20px_rgba(126,252,159,0.3)] disabled:opacity-60 disabled:cursor-not-allowed"
+        className="px-space-xl py-space-md bg-primary-container text-inverse-on-surface font-label-lg text-label-lg uppercase tracking-wider text-center font-bold hover:bg-tertiary transition-colors duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {status === "submitting" ? "SENDING..." : "SEND INQUIRY"}
       </button>

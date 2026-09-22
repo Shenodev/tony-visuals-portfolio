@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Syne, Space_Grotesk, Manrope } from "next/font/google";
+import { Archivo, Space_Grotesk, Manrope } from "next/font/google";
 import "./globals.css";
 
-const syne = Syne({
+const archivo = Archivo({
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
-  variable: "--font-syne",
+  weight: ["500", "600", "700", "900"],
+  variable: "--font-archivo",
   display: "swap",
 });
 
@@ -33,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`dark ${syne.variable} ${spaceGrotesk.variable} ${manrope.variable} antialiased`}
+      className={`dark ${archivo.variable} ${spaceGrotesk.variable} ${manrope.variable} antialiased`}
     >
       <head>
         <link
