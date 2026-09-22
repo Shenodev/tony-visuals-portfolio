@@ -20,7 +20,9 @@ export default function About() {
                 </span>{" "}
                 and an open ear.
               </blockquote>
-              <Image src="/images/about.png" alt="Tony" width={100} height={100} className="w-24 h-24 rounded-full" />
+              <div className="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full overflow-hidden border-2 border-primary-container p-1.5 shadow-[0_0_30px_rgba(126,252,159,0.15)] bg-surface-container-lowest">
+                <Image src="/images/about.png" alt="Tony" width={100} height={100} className="w-full h-full object-cover rounded-full filter contrast-105" />
+              </div>
               <p className="text-label-sm font-label-sm tracking-widest text-on-surface-variant uppercase mt-space-md">
                 — Tony, photographer based in Cairo
               </p>
