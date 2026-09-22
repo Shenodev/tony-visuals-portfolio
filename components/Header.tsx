@@ -51,7 +51,7 @@ export default function Header() {
         {/* Brand */}
         <a
           href="#"
-          className="font-headline-md text-headline-md tracking-tight text-on-surface hover:text-primary-container transition-colors"
+          className="text-display-xs md:text-headline-md text-headline-md tracking-tight text-on-surface hover:text-primary-container transition-colors"
         >
           TONY&nbsp;VISUALS
         </a>
@@ -76,7 +76,7 @@ export default function Header() {
         {/* CTA */}
         <a
           href="#contact"
-          className="rounded-full border border-primary-container/50 px-5 py-2 text-label-md font-label-md tracking-widest uppercase text-primary-container hover:bg-primary-container hover:text-inverse-on-surface transition-colors"
+          className="rounded-full text-label-xs md:text-label-md border border-primary-container/50 px-3 py-1.5 md:px-5 md:py-2 font-label-md tracking-widest uppercase text-primary-container hover:bg-primary-container hover:text-inverse-on-surface transition-colors"
         >
           Book a session
         </a>
