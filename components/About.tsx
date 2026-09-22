@@ -11,6 +11,14 @@ export default function About() {
             <span className="text-label-sm font-label-sm tracking-widest text-primary-container uppercase">
               About
             </span>
+            <div className="relative overflow-hidden rounded-xl aspect-[16/10] w-full bg-surface-container-lowest group shadow-[0_8px_40px_rgba(0,0,0,0.45)] mt-space-md">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                alt="Portrait placeholder — replace with a photograph"
+                className="img-desat object-cover object-center"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXvdxrRszmPyADUgLrBzpTiNr4gQyBGMbmYkq6-aSSSPwECa4Wz2adtZSOuq0mMHW0Gqe0X0bqSGzl6xC637vml8VbG5HLbylNNjLnd-f2PEDkCyLU1bal85eNbMZu8LGaRTzvlLZeDE0Y66AmppwAp2JBQkADtsRHZaNcZnIJuQSJtghKLZkYmZuRuNWtJk1Q9Clxt_cjbFia_0sQX7cvWgbfZpzOmAz3lMN0D4RUkB3I82A88Ks"
+              />
+            </div>
             <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mt-space-md">
               A photographer based in <span className="italic text-primary-container/90">Egypt</span>
             </h2>
