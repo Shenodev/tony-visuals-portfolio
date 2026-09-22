@@ -8,7 +8,7 @@ export default function About() {
       <div className="max-w-[1600px] mx-auto px-margin-mobile md:px-margin py-space-2xl md:py-space-3xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-xl lg:gap-space-3xl">
           {/* Headline column */}
-          <div className="lg:col-span-5 hidden lg:block">
+          <div className="lg:col-span-5">
             <span className="text-label-sm font-label-sm tracking-widest text-primary-container uppercase">
               About
             </span>
@@ -20,9 +20,7 @@ export default function About() {
                 </span>{" "}
                 and an open ear.
               </blockquote>
-              <div className="relative w-72 h-72 my-4 overflow-hidden p-1.5">
-                <Image src="/images/about.png" alt="Tony" width={100} height={100} className="w-full h-full object-cover rounded-xl filter contrast-105" />
-              </div>
+              <Image src="" alt="Tony" width={100} height={100} className="w-24 h-24 rounded-full" />
               <p className="text-label-sm font-label-sm tracking-widest text-on-surface-variant uppercase mt-space-md">
                 — Tony, photographer based in Cairo
               </p>
