@@ -3,7 +3,6 @@
 import { useCallback, useRef, useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import useSWR from "swr";
-import { deleteImage } from "@/lib/cloudinary";
 
 interface Album {
   _id: string;
@@ -234,11 +233,6 @@ export default function AlbumPhotosPage() {
         const data = await res.json();
         throw new Error(data.error || "Failed to delete album");
       }
-
-      // Delete images in Cloudinary
-      const imageIds = images?.map((image) => image.public_id) || [];
-      await Promise.all(imageIds.map((imageId) => deleteImageFromCloudinary(imageId)));
-
       router.push("/t-dashboard");
     } catch (err) {
       setDeleteError(
@@ -246,14 +240,6 @@ export default function AlbumPhotosPage() {
       );
     } finally {
       setDeleting(false);
-    }
-  };
-
-  const deleteImageFromCloudinary = async (imageId: string) => {
-    try {
-      await deleteImage(imageId);
-    } catch (err) {
-      console.error(`Failed to delete image from Cloudinary: ${err}`);
     }
   };
 
