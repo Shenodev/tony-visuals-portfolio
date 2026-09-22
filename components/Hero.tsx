@@ -5,19 +5,16 @@ export default function Hero() {
         <div className="flex items-center gap-2 mb-space-sm">
           <span className="inline-block w-2 h-2 bg-primary-container"></span>
           <span className="text-label-sm font-label-sm tracking-widest text-primary-container uppercase">
-            EXHIBITION MONOGRAPH // VOL. 08
+            PORTFOLIO // LIVE · EVENTS · PORTRAITURE
           </span>
         </div>
-        <h1 className="hidden md:block font-display-xl text-display-xl text-primary-container tracking-tight leading-none mb-space-sm">
-          CAPTURING RAW SONIC ENERGY
-        </h1>
-        <h1 className="block md:hidden font-display-xl-mobile text-display-xl-mobile text-primary-container tracking-tight leading-none mb-space-sm">
-          CAPTURING RAW SONIC ENERGY
+        <h1 className="font-display-xl text-display-xl text-primary-container tracking-tight leading-none mb-space-sm max-w-4xl">
+          CAPTURING LIGHT, EMOTION &amp; THE STAGE
         </h1>
         <p className="font-body-lg text-body-lg text-on-surface max-w-2xl font-light tracking-wide opacity-90">
-          ATMOSPHERIC EVENT &amp; CONCERT CHRONICLES. Unfiltered live-stage
-          tension, stage lights, sonic frequencies, and transcendent audience
-          communion preserved on 35mm formats.
+          Egypt-based visual storytelling — live performances, events, and
+          dramatic portraiture built on strong lighting, precise timing, and
+          genuine character.
         </p>
       </div>
 
@@ -33,12 +30,12 @@ export default function Hero() {
           <div className="absolute top-4 left-4 pointer-events-none hidden sm:flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
             <span className="text-label-sm font-label-sm text-primary-container tracking-widest uppercase">
-              REC // [FRAME 24A]
+              REC // [FRAME 01A]
             </span>
           </div>
           <div className="absolute bottom-4 right-4 pointer-events-none hidden sm:flex items-center gap-4 bg-surface/85 backdrop-blur-md px-3 py-1.5 border border-outline-variant/40">
             <span className="text-label-sm font-label-sm text-on-surface tracking-wider">
-              35MM SUMMILUX
+              50MM SUMMILUX
             </span>
             <span className="text-label-sm font-label-sm text-primary-container font-mono">
               1/250s · f/1.4 · ISO 3200
@@ -50,11 +47,11 @@ export default function Hero() {
           <div className="flex items-center gap-3">
             <span className="text-primary-container font-bold">FIG 01.</span>
             <span className="tracking-widest uppercase text-on-surface">
-              AUSTIN PSYCH FEST // MAIN ARENA TRANSMISSION
+              CAIRO, EGYPT // LIVE PRODUCTION
             </span>
           </div>
           <div className="tracking-widest uppercase text-on-surface-variant/80 font-mono text-[11px]">
-            LEICA M11 // 35MM SUMMILUX // CHRONICLE ID #802-TX
+            CHRONICLE ID #EG-01 // LIVE · EVENTS · PORTRAITURE
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ export default function Footer() {
             TONY VISUALS
           </span>
           <p className="font-body-sm text-body-sm text-on-surface-variant/80">
-            © 2024 TONY VISUALS. ALL RIGHTS RESERVED. DESIGNED &amp; DEVELOPED
+            © 2025 TONY VISUALS. ALL RIGHTS RESERVED. DESIGNED &amp; DEVELOPED
             BY SHENODEV.
           </p>
         </div>
@@ -21,14 +21,6 @@ export default function Footer() {
             className="text-label-sm font-label-sm tracking-widest uppercase text-on-surface-variant hover:text-primary-container transition-colors"
           >
             INSTAGRAM
-          </a>
-          <a
-            href="https://soundcloud.com"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="text-label-sm font-label-sm tracking-widest uppercase text-on-surface-variant hover:text-primary-container transition-colors"
-          >
-            SOUNDCLOUD
           </a>
           <a
             href="https://behance.net"
@@ -45,6 +37,12 @@ export default function Footer() {
             className="text-label-sm font-label-sm tracking-widest uppercase text-on-surface-variant hover:text-primary-container transition-colors"
           >
             VSCO
+          </a>
+          <a
+            href="mailto:tonylens.web@outlook.com"
+            className="text-label-sm font-label-sm tracking-widest uppercase text-on-surface-variant hover:text-primary-container transition-colors"
+          >
+            CONTACT
           </a>
           <a
             href="#portfolio"

@@ -24,9 +24,9 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "TONY VISUALS — Atmospheric Event & Concert Chronicles",
+  title: "TONY VISUALS — Photographer in Egypt | Live Performances, Events & Portraiture",
   description:
-    "Atmospheric Event & Concert Chronicles. Unfiltered live-stage tension, stage lights, sonic frequencies, and transcendent audience communion preserved on 35mm formats.",
+    "Tony Visuals is a photographer based in Egypt specializing in live performances, events, and dramatic portraiture — strong lighting, precise timing, and authentic emotion in every frame.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

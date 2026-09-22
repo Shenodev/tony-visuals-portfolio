@@ -25,12 +25,6 @@ export default function Header() {
             ABOUT
           </a>
           <a
-            href="#series"
-            className="text-label-lg font-label-lg uppercase tracking-wider text-on-surface hover:text-primary-container transition-colors"
-          >
-            SERIES
-          </a>
-          <a
             href="#contact"
             className="text-label-lg font-label-lg uppercase tracking-wider text-on-surface hover:text-primary-container transition-colors"
           >
