@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* Visible keyboard focus indicator across the site */
+:focus-visible {
+  outline: 2px solid var(--color-primary-container);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
@@ -80,21 +87,6 @@ html {
   --font-headline-lg: Fraunces;
   --font-display-lg: Fraunces;
   --font-display-xl: Fraunces;
-}
-
-/* Material Symbols */
-.material-symbols-outlined {
-  font-family: "Material Symbols Outlined";
-  font-weight: normal;
-  font-style: normal;
-  font-size: 20px;
-  line-height: 1;
-  display: inline-block;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
 }
 
 /* Editorial hairline utility */

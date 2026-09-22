@@ -9,19 +9,50 @@ export default function ContactBand() {
           <ContactForm />
         </div>
 
-        {/* Right — form panel */}
+        {/* Right — booking notes */}
         <div className="lg:col-span-5 flex flex-col justify-between gap-space-xl">
           <div>
             <span className="text-label-sm font-label-sm tracking-widest text-primary-container uppercase">
               Commissions &amp; bookings
             </span>
-            <div className="relative overflow-hidden rounded-xl aspect-[16/10] w-full bg-surface-container-lowest group shadow-[0_8px_40px_rgba(0,0,0,0.45)] mt-space-md">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                alt="Event placeholder — replace with a photograph"
-                className="img-desat object-cover object-center"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXvdxrRszmPyADUgLrBzpTiNr4gQyBGMbmYkq6-aSSSPwECa4Wz2adtZSOuq0mMHW0Gqe0X0bqSGzl6xC637vml8VbG5HLbylNNjLnd-f2PEDkCyLU1bal85eNbMZu8LGaRTzvlLZeDE0Y66AmppwAp2JBQkADtsRHZaNcZnIJuQSJtghKLZkYmZuRuNWtJk1Q9Clxt_cjbFia_0sQX7cvWgbfZpzOmAz3lMN0D4RUkB3I82A88Ks"
-              />
+            <div className="relative overflow-hidden rounded-xl bg-surface-container border border-outline-variant/20 p-space-xl mt-space-md shadow-[0_8px_40px_rgba(0,0,0,0.45)] before:pointer-events-none before:absolute before:inset-0 before:content-[''] before:bg-[radial-gradient(70%_60%_at_15%_0%,rgba(126,252,159,0.10),transparent)]">
+              <dl className="flex flex-col divide-y divide-outline-variant/25">
+                <div className="flex items-baseline justify-between gap-space-md py-space-md">
+                  <dt className="text-label-sm font-label-sm tracking-widest text-on-surface-variant uppercase">
+                    Location
+                  </dt>
+                  <dd className="font-headline-sm text-headline-sm text-on-surface">
+                    Cairo · working worldwide
+                  </dd>
+                </div>
+                <div className="flex items-baseline justify-between gap-space-md py-space-md">
+                  <dt className="text-label-sm font-label-sm tracking-widest text-on-surface-variant uppercase">
+                    Response time
+                  </dt>
+                  <dd className="font-headline-sm text-headline-sm text-on-surface">
+                    Within 1–2 days
+                  </dd>
+                </div>
+                <div className="flex items-baseline justify-between gap-space-md py-space-md">
+                  <dt className="text-label-sm font-label-sm tracking-widest text-on-surface-variant uppercase">
+                    Booking
+                  </dt>
+                  <dd className="font-headline-sm text-headline-sm text-on-surface">
+                    Quote confirmed in writing
+                  </dd>
+                </div>
+              </dl>
+              <p className="mt-space-lg font-body-sm text-body-sm text-on-surface-variant">
+                Dates, deliverables, and pricing are agreed personally before any
+                session — see the{" "}
+                <a
+                  href="/refund-policy"
+                  className="underline text-primary-container hover:opacity-80 transition-opacity"
+                >
+                  refund policy
+                </a>{" "}
+                for deposits and cancellations.
+              </p>
             </div>
             <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mt-space-md">
               Let&apos;s create <span className="italic text-primary-container/90">something</span> together.

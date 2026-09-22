@@ -1,5 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Manrope } from "next/font/google";
+import CookieBanner from "@/components/CookieBanner";
+import {
+  SITE_DESCRIPTION,
+  SITE_LOCALE,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/site";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -18,9 +25,31 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "TONY VISUALS — Photographer in Egypt | Live Performances, Events & Portraiture",
-  description:
-    "Tony Visuals is a photographer based in Egypt specializing in live performances, events, and dramatic portraiture — strong lighting, precise timing, and authentic emotion in every frame.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — Photographer in Egypt | Live Performances, Events & Portraiture`,
+    template: `%s — ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    type: "website",
+    locale: SITE_LOCALE,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — Photographer in Egypt`,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — Photographer in Egypt`,
+    description: SITE_DESCRIPTION,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#081F26",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -29,14 +58,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`dark ${fraunces.variable} ${manrope.variable} antialiased`}
     >
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body className="bg-background text-on-surface antialiased selection:bg-primary-container selection:text-inverse-on-surface overflow-x-hidden min-h-screen flex flex-col justify-between">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-5 focus:py-2 focus:rounded-full focus:bg-primary-container focus:text-inverse-on-surface focus:text-label-md focus:font-label-md focus:uppercase focus:tracking-wider focus:font-semibold"
+        >
+          Skip to content
+        </a>
         {children}
+        <CookieBanner />
       </body>
     </html>
   );

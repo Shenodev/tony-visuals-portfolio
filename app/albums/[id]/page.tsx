@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import Icon from "@/components/Icon";
 import { getAlbumById, getAlbumImages } from "@/lib/albums";
 
 interface AlbumPageProps {
@@ -14,8 +16,9 @@ export async function generateMetadata({ params }: AlbumPageProps) {
   const album = await getAlbumById(id);
   if (!album) return { title: "Album Not Found" };
   return {
-    title: `${album.title} — Tony Visuals`,
+    title: `${album.title} — Photography albums`,
     description: album.description || `Photography album: ${album.title}`,
+    alternates: { canonical: `/albums/${album._id}` },
   };
 }
 
@@ -31,9 +34,16 @@ export default async function AlbumPage({ params }: AlbumPageProps) {
   return (
     <>
       <Header />
-      <main className="flex-grow">
+      <main id="main-content" className="flex-grow">
         {/* Album header */}
         <section className="max-w-[1600px] mx-auto px-margin-mobile md:px-margin pt-space-3xl md:pt-space-4xl pb-space-xl">
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Portfolio", href: "/#portfolio" },
+              { label: album.title },
+            ]}
+          />
           <Link
             href="/#portfolio"
             className="inline-flex items-center gap-1 text-label-sm font-label-sm tracking-widest text-primary-container uppercase hover:opacity-80 transition-opacity mb-space-lg"
@@ -52,9 +62,10 @@ export default async function AlbumPage({ params }: AlbumPageProps) {
               <div className="flex items-center gap-space-lg mt-space-md">
                 {album.location && (
                   <span className="text-label-md font-label-md tracking-wide text-on-surface-variant flex items-center gap-1">
-                    <span className="material-symbols-outlined text-[16px] text-primary-container">
-                      location_on
-                    </span>
+                    <Icon
+                      name="location_on"
+                      className="w-4 h-4 text-primary-container"
+                    />
                     {album.location}
                   </span>
                 )}
@@ -81,16 +92,17 @@ export default async function AlbumPage({ params }: AlbumPageProps) {
         <section className="max-w-[1600px] mx-auto px-margin-mobile md:px-margin pb-space-3xl">
           {images.length === 0 ? (
             <div className="py-space-3xl text-center rounded-xl border border-dashed border-outline-variant/30">
-              <span className="material-symbols-outlined text-[48px] text-outline-variant/50 block mb-space-md">
-                photo_library
-              </span>
-              <p className="text-label-md font-label-md text-on-surface-variant/60 uppercase tracking-wider">
+              <Icon
+                name="photo_library"
+                className="w-12 h-12 text-outline-variant/50 block mx-auto mb-space-md"
+              />
+              <p className="text-label-md font-label-md text-on-surface-variant/75 uppercase tracking-wider">
                 No plates in this series yet
               </p>
             </div>
           ) : (
             <div className="columns-1 sm:columns-2 md:columns-3 gap-space-md space-y-space-md">
-              {images.map((img) => {
+              {images.map((img, index) => {
                 const blurDataURL = `https://res.cloudinary.com/image/upload/w_20,e_blur:30,q_auto,f_jpg/${img.public_id}`;
 
                 return (
@@ -102,7 +114,7 @@ export default async function AlbumPage({ params }: AlbumPageProps) {
                       <Image
                         className="img-desat object-cover object-center"
                         src={img.url}
-                        alt={album.title}
+                        alt={`${album.title} — photograph ${index + 1} of ${images.length}`}
                         width={img.width}
                         height={img.height}
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

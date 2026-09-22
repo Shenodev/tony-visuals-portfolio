@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AlbumDoc } from "@/lib/albums";
+import Icon from "@/components/Icon";
 
 interface AlbumsGridProps {
   albums: AlbumDoc[];
@@ -26,10 +27,11 @@ export default function AlbumsGrid({ albums }: AlbumsGridProps) {
 
       {albums.length === 0 ? (
         <div className="py-space-3xl text-center rounded-xl border border-dashed border-outline-variant/30">
-          <span className="material-symbols-outlined text-[48px] text-outline-variant/50 block mb-space-md">
-            photo_library
-          </span>
-          <p className="text-label-md font-label-md text-on-surface-variant/60 uppercase tracking-wider">
+          <Icon
+            name="photo_library"
+            className="w-12 h-12 text-outline-variant/50 block mx-auto mb-space-md"
+          />
+          <p className="text-label-md font-label-md text-on-surface-variant/75 uppercase tracking-wider">
             The archive is currently empty
           </p>
         </div>
@@ -76,9 +78,7 @@ export default function AlbumsGrid({ albums }: AlbumsGridProps) {
                 <div className="flex items-center gap-space-md pt-1">
                   {album.location && (
                     <span className="text-label-sm font-label-sm text-on-surface-variant/70 tracking-wide flex items-center gap-1">
-                      <span className="material-symbols-outlined text-[14px]">
-                        location_on
-                      </span>
+                      <Icon name="location_on" className="w-4 h-4" />
                       {album.location}
                     </span>
                   )}
