@@ -76,7 +76,7 @@ export default function Header() {
         {/* CTA */}
         <a
           href="#contact"
-          className="rounded-full text-label-xs md:text-label-md border border-primary-container/50 px-3 py-1.5 md:px-5 md:py-2 font-label-md tracking-widest uppercase text-primary-container hover:bg-primary-container hover:text-inverse-on-surface transition-colors"
+          className="rounded-full hidden md:block border border-primary-container/50 px-5 py-2 text-label-md font-label-md tracking-widest uppercase text-primary-container hover:bg-primary-container hover:text-inverse-on-surface transition-colors"
         >
           Book a session
         </a>
