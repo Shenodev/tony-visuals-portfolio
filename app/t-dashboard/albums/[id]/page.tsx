@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import useSWR from "swr";
+import { deleteImage } from "@/lib/cloudinary";
 
 interface Album {
   _id: string;
