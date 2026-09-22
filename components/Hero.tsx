@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Hero() {
   return (
     <section className="max-w-[1600px] mx-auto px-margin-mobile md:px-margin pt-space-3xl md:pt-space-4xl pb-space-2xl md:pb-space-3xl">
@@ -35,10 +33,24 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Editorial plate */}
+        {/* Temporary art direction placeholder — replace with the final concert photograph. */}
         <div className="lg:col-span-5 hidden lg:block">
-          <Image src="/"
-          alt="Hero" width={500} height={500} className="w-full h-full object-cover rounded-xl" />
+          <div
+            role="img"
+            aria-label="Placeholder artwork showing a concert photographer silhouetted against mint and cyan stage lights"
+            className="concert-placeholder relative aspect-[16/10] overflow-hidden rounded-2xl border border-primary-container/20 shadow-[0_24px_80px_rgba(0,0,0,0.38)]"
+          >
+            <div className="concert-placeholder__beam concert-placeholder__beam--one" />
+            <div className="concert-placeholder__beam concert-placeholder__beam--two" />
+            <div className="concert-placeholder__beam concert-placeholder__beam--three" />
+            <div className="concert-placeholder__fog" />
+            <div className="concert-placeholder__crowd" />
+            <div className="concert-placeholder__photographer" />
+            <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 text-[10px] font-label-sm uppercase tracking-[0.24em] text-on-surface/70">
+              <span>Live / Cairo</span>
+              <span>Placeholder visual</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
