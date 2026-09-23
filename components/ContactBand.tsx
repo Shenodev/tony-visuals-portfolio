@@ -61,6 +61,19 @@ export default function ContactBand() {
 
           <div className="flex flex-col gap-space-md">
             <a
+              href="https://www.instagram.com/tony_portfolioo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-fit items-center gap-space-sm rounded-full border border-primary-container/60 bg-primary-container/5 px-7 py-3 text-label-lg font-label-lg tracking-widest uppercase text-primary-container transition-colors hover:bg-primary-container/15"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" stroke="none" />
+              </svg>
+              @tony_portfolioo
+            </a>
+            <a
               href="mailto:tonylens.web@outlook.com"
               className="font-body-lg text-body-lg text-on-surface hover:text-primary-container transition-colors break-all underline decoration-outline-variant/40 underline-offset-4 decoration-1 hover:decoration-primary-container"
             >
