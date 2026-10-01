@@ -11,6 +11,14 @@ interface AlbumPageProps {
   params: Promise<{ id: string }>;
 }
 
+export const dynamic = "force-dynamic";
+
+export async function generateStaticParams() {
+  const { getAllAlbums } = await import("@/lib/albums");
+  const albums = await getAllAlbums();
+  return albums.map((a) => ({ id: a._id }));
+}
+
 export async function generateMetadata({ params }: AlbumPageProps) {
   const { id } = await params;
   const album = await getAlbumById(id);

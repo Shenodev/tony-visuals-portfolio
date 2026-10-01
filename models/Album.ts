@@ -27,5 +27,7 @@ const AlbumSchema: Schema = new Schema(
   { timestamps: true }
 );
 
+AlbumSchema.index({ createdAt: -1 });
+
 export default (mongoose.models.Album as mongoose.Model<IAlbum>) ||
   mongoose.model<IAlbum>("Album", AlbumSchema);

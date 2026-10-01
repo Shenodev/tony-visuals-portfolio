@@ -24,5 +24,7 @@ const ImageSchema: Schema = new Schema(
   { timestamps: { createdAt: true, updatedAt: false } }
 );
 
+ImageSchema.index({ albumId: 1 });
+
 export default (mongoose.models.Image as mongoose.Model<IImage>) ||
   mongoose.model<IImage>("Image", ImageSchema);

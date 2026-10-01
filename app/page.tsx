@@ -16,7 +16,7 @@ import {
   STUDIO_GEO,
 } from "@/lib/site";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: `${SITE_NAME} — Photographer in Egypt | Live Performances, Events & Portraiture`,
@@ -70,7 +70,6 @@ export default async function Home() {
     <>
       <JsonLd data={siteSchema} />
       <Header />
-      {/* Main Public Canvas */}
       <main id="main-content" className="flex-grow">
         <Hero />
         <About />
